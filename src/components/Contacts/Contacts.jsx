@@ -1,7 +1,19 @@
 import { Title, List, Button, ListItem } from "./Contacts.styled";
-import PropTypes from 'prop-types';
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { deleteContact } from "../../redux/actions";
+import { getContacts } from "../../redux/selectors";
 
-export default function Contacts({ contacts, onClick }) {
+export default function Contacts() {
+    const dispatch = useDispatch();
+    const stateContacts = useSelector(getContacts);
+    const [contacts, setContacts] = useState(stateContacts);
+
+    const handleDeleteContact = (id) => {
+        dispatch(deleteContact(id));
+    }
+
     return (
         <>
             <Title>Contacts</Title>
@@ -10,7 +22,7 @@ export default function Contacts({ contacts, onClick }) {
                     <ListItem key={id}>
                         <Button onClick={() => {
                             console.log(id);
-                            return onClick(id);
+                            return handleDeleteContact(id);
                         }}>
                             Delete
                         </Button>
@@ -20,15 +32,4 @@ export default function Contacts({ contacts, onClick }) {
             </List>
         </>
     );
-}
-
-Contacts.propTypes = {
-    contacts: PropTypes.arrayOf(
-        PropTypes.exact({
-            name: PropTypes.string.isRequired,
-            number: PropTypes.string.isRequired,
-            id: PropTypes.string.isRequired
-        })
-    ).isRequired,
-    onClick: PropTypes.func.isRequired
 }
