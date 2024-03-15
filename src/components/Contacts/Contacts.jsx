@@ -1,14 +1,15 @@
 import { Title, List, Button, ListItem } from "./Contacts.styled";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
 import { deleteContact } from "../../redux/actions";
-import { getContacts } from "../../redux/selectors";
+import { getContacts, getFilter } from "../../redux/selectors";
 
 export default function Contacts() {
     const dispatch = useDispatch();
     const stateContacts = useSelector(getContacts);
-    const [contacts, setContacts] = useState(stateContacts);
+    const stateFilter = useSelector(getFilter);
+    const normilizedFilter = stateFilter.toLowerCase();
+    const visibleContacts = stateContacts.filter(contact => contact.name.toLowerCase().includes(normilizedFilter));
 
     const handleDeleteContact = (id) => {
         dispatch(deleteContact(id));
@@ -18,7 +19,7 @@ export default function Contacts() {
         <>
             <Title>Contacts</Title>
             <List>
-                {contacts.map(({ name, id, number }) => (
+                {visibleContacts.map(({ name, id, number }) => (
                     <ListItem key={id}>
                         <Button onClick={() => {
                             console.log(id);

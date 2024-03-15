@@ -44,10 +44,6 @@ export default function Phonebook() {
     //     resetForm();
     // }
 
-    const filterValueHandler = (e) => {
-        setFilter(e.target.value);
-    }
-
     // const deleteContact = (id) => {
     //     const updatedContacts = contacts.filter(contact => contact.id !== id);
     //     setContacts(updatedContacts);
@@ -60,7 +56,8 @@ export default function Phonebook() {
         <Container>
             <Title>Phonebook</Title>
             <UserAddForm />
-            {/* <Filter filter={filter} onChange={filterValueHandler}/> */}
+            <Filter />
+            {/* filter={filter} onChange={filterValueHandler} */}
             <Contacts />
         </Container>
     );
