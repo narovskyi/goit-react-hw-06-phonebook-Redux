@@ -5,7 +5,6 @@ import { getFilter } from "../../redux/selectors";
 import { setFilter } from "../../redux/actions";
 
 export default function Filter() {
-    // { filter, onChange }
     const dispatch = useDispatch();
     const stateFilter = useSelector(getFilter);
 

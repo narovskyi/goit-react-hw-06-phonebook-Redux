@@ -1,7 +1,6 @@
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Input, ErrorNotification, Button } from 'components/UserAddForm/UserAddForm.styled';
-import PropTypes from 'prop-types';
 import { addContact } from "../../redux/actions";
 import { useDispatch } from 'react-redux';
 
@@ -18,13 +17,6 @@ const validationSchema = Yup.object().shape({
 export default function UserAddForm() {
     const dispatch = useDispatch();
     const addContactHandler = (values, { resetForm }) => {
-        console.log(values);
-        // const normilizedName = values.name.toLowerCase();
-        // const sameName = contacts.filter(contact => contact.name.toLowerCase() === normilizedName);
-        // if (sameName.length > 0) {
-        //     alert(`${sameName[0].name} is already in contacts`);
-        //     return;
-        // }
         dispatch(addContact(values));
         resetForm();
     }
@@ -42,7 +34,7 @@ export default function UserAddForm() {
                             placeholder="Name"
                             type="text"
                             name="name"
-                            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+                            pattern="^[a-zA-Za-яА-Я]+(([' -][a-zA-Za-яА-Я ])?[a-zA-Za-яА-Я]*)*$"
                             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
                         />
                         <ErrorMessage
@@ -70,7 +62,3 @@ export default function UserAddForm() {
         </>
     );
 }
-
-// UserAddForm.propTypes = {
-//     addContact: PropTypes.func.isRequired
-// }
